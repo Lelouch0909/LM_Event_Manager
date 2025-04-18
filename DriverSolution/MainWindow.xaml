@@ -1,0 +1,34 @@
+﻿<Window Style="{StaticResource MaterialDesignWindow}" x:Class="DriverSolution.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DriverSolution"
+        mc:Ignorable="d"
+        Title="LM Event Manager" Height="900" Width="1438"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ressources/icons.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+   <!-- Layouting --> 
+    <Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="228"  ></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="323"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+        <Grid>
+            <StackPanel
+                Orientation="Vertical" Margin="0,83,0,0">
+                <TextBlock Text="Drive" Foreground="#515EC1" Margin="65,0,0,0"
+                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                           FontSize="21" FontFamily="Arial Rounded MT Bold"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
