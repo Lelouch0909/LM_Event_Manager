@@ -18,7 +18,16 @@ public partial class MenuButton : UserControl
         
     }
 
+    public String Text
+    {
+        get { return (String) GetValue(TextProperty); }
+        set {SetValue(TextProperty, value);}
+    }
+
     // Je declare
     public static readonly DependencyProperty IconProperty = DependencyProperty
-        .Register("Icon",typeof(PathGeometry),typeof(MenuButton),new PropertyMetadata(0));
+        .Register("Icon",typeof(PathGeometry),typeof(MenuButton));
+
+    public static readonly DependencyProperty TextProperty = DependencyProperty
+        .Register("Text", typeof(String), typeof(MenuButton));
 }
