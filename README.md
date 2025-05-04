@@ -1,6 +1,6 @@
 # LM Event Manager - Gestion d'Événements
 
-![Bannière DriverSolution](screenshots/banner.png)
+![Bannière DriverSolution](DriverSolution/ressources/applogo.png)
 
 ## 📋 Description
 
