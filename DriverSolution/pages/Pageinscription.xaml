@@ -1,0 +1,220 @@
+<Page x:Class="DriverSolution.pages.Pageinscription"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+      xmlns:local="clr-namespace:DriverSolution.pages"
+      mc:Ignorable="d"
+      Title="Pageinscription" d:DesignHeight="850" d:DesignWidth="1200">
+    <Grid Background="White">
+        <!-- Layout en deux colonnes -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="#6A0DAD">
+           
+            <Image Source="../ressources/applogo.png" 
+                   Stretch="Uniform" Width="200" Margin="0,0,0,300"/>
+            <Border Grid.Column="0" >
+            
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                  
+                    <TextBlock Text="LM Event Manager" 
+                               Foreground="White" 
+                               FontSize="28" 
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Gérez tous vos événements en un seul endroit" 
+                               Foreground="White" 
+                               FontSize="16"
+                               Opacity="0.8"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <!-- Partie gauche - Image/Présentation -->
+       
+
+        <!-- Partie droite - Formulaire -->
+        <Grid Grid.Column="1">
+            <TabControl x:Name="tcAuth" 
+                        BorderThickness="0"
+                        SelectedIndex="0"
+                        Background="White">
+                
+                <!-- Style des onglets -->
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Border Name="Border" BorderThickness="0">
+                                        <ContentPresenter x:Name="ContentSite"
+                                                          VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"
+                                                          ContentSource="Header"
+                                                          Margin="20,15"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,2"/>
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="#6A0DAD"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+
+                <!-- Onglet Connexion -->
+                <TabItem Header="Connexion">
+                    <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Connectez-vous à votre compte"
+                                   FontSize="20"
+                                   FontWeight="Medium"
+                                   Margin="0,0,0,30"/>
+
+                        <!-- Champ Email -->
+                        <TextBlock Text="Email" Margin="0,0,0,5" FontSize="14"/>
+                        <Border BorderThickness="1" BorderBrush="#CCC" CornerRadius="5" Margin="0,0,0,15">
+                            <TextBox x:Name="tbLoginEmail" 
+                                    BorderThickness="0" 
+                                    Padding="12,8"
+                                    FontSize="14"
+                                    materialDesign:HintAssist.Hint="exemple@email.com"/>
+                        </Border>
+
+                        <!-- Champ Mot de passe -->
+                        <TextBlock Text="Mot de passe" Margin="0,0,0,5" FontSize="14"/>
+                        <Border BorderThickness="1" BorderBrush="#CCC" CornerRadius="5" Margin="0,0,0,10">
+                            <PasswordBox x:Name="pbLoginPassword"
+                                        BorderThickness="0" 
+                                        Padding="12,8"
+                                        FontSize="14"/>
+                        </Border>
+
+                        <!-- Lien mot de passe oublié -->
+                        <TextBlock Text="Mot de passe oublié ?" 
+                                   Foreground="#6A0DAD"
+                                   HorizontalAlignment="Right"
+                                   Margin="0,0,0,25"
+                                   Cursor="Hand"
+                                   MouseLeftButtonDown="ForgotPassword_Click"/>
+
+                        <!-- Bouton Connexion -->
+                        <Button Content="Se connecter" 
+                                Background="#6A0DAD"
+                                Foreground="White"
+                                FontSize="16"
+                                Height="45"
+                                BorderThickness="0"
+                                Click="Login_Click"/>
+
+                        <!-- Séparateur -->
+                        <StackPanel Orientation="Horizontal" Margin="0,25" HorizontalAlignment="Center">
+                            <Line X1="0" Y1="0" X2="100" Y2="0" Stroke="#CCC" StrokeThickness="1" Stretch="Fill"/>
+                            <TextBlock Text="ou" Margin="10,0" Foreground="#777"/>
+                            <Line X1="0" Y1="0" X2="100" Y2="0" Stroke="#CCC" StrokeThickness="1" Stretch="Fill"/>
+                        </StackPanel>
+
+                        <!-- Bouton Connexion Google -->
+                        <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Margin="0,0,0,20"
+                                Click="GoogleLogin_Click">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Image Source="../ressources/google.png" Width="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="Continuer avec Google" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                       
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Onglet Inscription -->
+                <TabItem Header="Inscription">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20">
+                            <TextBlock Text="Créez votre compte"
+                                       FontSize="20"
+                                       FontWeight="Medium"
+                                       Margin="0,0,0,30"/>
+
+                            <!-- Champ Nom complet -->
+                            <TextBlock Text="Nom complet" Margin="0,0,0,5" FontSize="14"/>
+                            <Border BorderThickness="1" BorderBrush="#CCC" CornerRadius="5" Margin="0,0,0,15">
+                                <TextBox x:Name="tbRegisterFullName" 
+                                        BorderThickness="0" 
+                                        Padding="12,8"
+                                        FontSize="14"/>
+                            </Border>
+
+                            <!-- Champ Email -->
+                            <TextBlock Text="Email" Margin="0,0,0,5" FontSize="14"/>
+                            <Border BorderThickness="1" BorderBrush="#CCC" CornerRadius="5" Margin="0,0,0,15">
+                                <TextBox x:Name="tbRegisterEmail" 
+                                        BorderThickness="0" 
+                                        Padding="12,8"
+                                        FontSize="14"
+                                        materialDesign:HintAssist.Hint="exemple@email.com"/>
+                            </Border>
+
+                            <!-- Champ Mot de passe -->
+                            <TextBlock Text="Mot de passe" Margin="0,0,0,5" FontSize="14"/>
+                            <Border BorderThickness="1" BorderBrush="#CCC" CornerRadius="5" Margin="0,0,0,5">
+                                <PasswordBox x:Name="pbRegisterPassword"
+                                            BorderThickness="0" 
+                                            Padding="12,8"
+                                            FontSize="14"/>
+                            </Border>
+                            <TextBlock Text="8 caractères minimum, dont 1 majuscule et 1 chiffre"
+                                       FontSize="12"
+                                       Foreground="#777"
+                                       Margin="0,0,0,15"/>
+
+                            <!-- Champ Confirmation mot de passe -->
+                            <TextBlock Text="Confirmer le mot de passe" Margin="0,0,0,5" FontSize="14"/>
+                            <Border BorderThickness="1" BorderBrush="#CCC" CornerRadius="5" Margin="0,0,0,25">
+                                <PasswordBox x:Name="pbRegisterConfirmPassword"
+                                            BorderThickness="0" 
+                                            Padding="12,8"
+                                            FontSize="14"/>
+                            </Border>
+
+                            <!-- Case à cocher CGU -->
+                            <CheckBox x:Name="cbTerms" 
+                                     Margin="0,0,0,25"
+                                     Content="J'accepte les conditions générales d'utilisation"/>
+
+                            <!-- Bouton Inscription -->
+                            <Button Content="S'inscrire" 
+                                    Background="#6A0DAD"
+                                    Foreground="White"
+                                    FontSize="16"
+                                    Height="45"
+                                    BorderThickness="0"
+                                    Click="Register_Click"/>
+
+                            <!-- Lien vers connexion -->
+                            <TextBlock Text="Vous avez déjà un compte ? " HorizontalAlignment="Center" Margin="0,20">
+                                <Run Text="Se connecter" 
+                                     Foreground="#6A0DAD"
+                                     FontWeight="Bold"
+                                     Cursor="Hand"
+                                     MouseLeftButtonDown="SwitchToLogin_Click"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Page>

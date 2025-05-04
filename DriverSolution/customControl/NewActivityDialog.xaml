@@ -1,0 +1,120 @@
+<Window x:Class="DriverSolution.customControl.NewActivityDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Nouvelle Activité" 
+        Height="700" Width="400"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- En-tête -->
+        <TextBlock Text="Nouvelle Activité" 
+                   FontSize="20" FontWeight="Bold"
+                   Margin="0,0,0,15"/>
+
+        <!-- Formulaire -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <!-- Nom -->
+                <TextBox x:Name="NameTextBox"
+                         materialDesign:HintAssist.Hint="Nom de l'activité"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,10"/>
+
+                <!-- Description -->
+                <TextBox x:Name="DescriptionTextBox"
+                         materialDesign:HintAssist.Hint="Description"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         MinHeight="80"
+                         Margin="0,0,0,10"/>
+
+                <!-- Dates -->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DatePicker x:Name="StartDatePicker"
+                                materialDesign:HintAssist.Hint="Date de début"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                    
+                    <materialDesign:TimePicker x:Name="StartTimePicker"
+                                Grid.Column="2"
+                                materialDesign:HintAssist.Hint="Heure de début"
+                                Style="{StaticResource MaterialDesignOutlinedTimePicker}"/>
+                </Grid>
+
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DatePicker x:Name="EndDatePicker"
+                                materialDesign:HintAssist.Hint="Date de fin"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                    
+                    <materialDesign:TimePicker x:Name="EndTimePicker"
+                                Grid.Column="2"
+                                materialDesign:HintAssist.Hint="Heure de fin"
+                                Style="{StaticResource MaterialDesignOutlinedTimePicker}"/>
+                </Grid>
+
+                <!-- Lieu -->
+                <TextBox x:Name="LocationTextBox"
+                         materialDesign:HintAssist.Hint="Lieu (salle, bâtiment...)"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,10"/>
+
+                <!-- Lien en ligne -->
+                <TextBox x:Name="OnlineLinkTextBox"
+                         materialDesign:HintAssist.Hint="Lien pour participation en ligne"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,10"/>
+
+                <!-- Intervenants -->
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Intervenants" Margin="0,0,0,5"/>
+                    <ListView x:Name="SpeakersListView" 
+                              Height="100"
+                              SelectionMode="Multiple">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}" 
+                                          IsChecked="{Binding IsSelected}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Boutons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Annuler" 
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Margin="0,0,10,0"
+                    Click="CancelButton_Click"/>
+            
+            <Button Content="Enregistrer" 
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="DarkViolet"
+                    Foreground="White"
+                    Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

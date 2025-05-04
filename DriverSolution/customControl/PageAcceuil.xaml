@@ -1,0 +1,228 @@
+<UserControl x:Class="DriverSolution.customControl.PageAcceuil"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:DriverSolution.customControl"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="850" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <Style x:Key="MaterialDesignCardActionButton" TargetType="Button"
+               BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer Background="LightGray" Margin="0" Padding="0">
+        <StackPanel>
+
+
+            <Border Height="200" Background="LightGray" Margin="0">
+                <Grid>
+                    <!-- Ajoutez un fond de secours -->
+                    <Image Source="../ressources/event_cover.jpg" Stretch="UniformToFill" />
+
+                    <!-- Image dynamique par-dessus -->
+                    <Image x:Name="CoverImage"
+                           Stretch="UniformToFill"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           SnapsToDevicePixels="True">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Opacity" Value="1" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source}" Value="{x:Null}">
+                                        <Setter Property="Opacity" Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+
+                    <TextBlock x:Name="EventNameText"
+                               Text="Nom de l'événement"
+                               Foreground="White"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               VerticalAlignment="Top"
+                               Margin="20"
+                               TextWrapping="Wrap" />
+                    <Grid Margin="31,100,9,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Période -->
+                        <StackPanel Grid.Column="0" VerticalAlignment="Bottom">
+                            <TextBlock Foreground="white"
+                                       Text="Période" FontWeight="Bold" FontSize="16" />
+                            <TextBlock x:Name="EventDatesText"
+                                       Foreground="white"
+                                       Text="Dates non définies" />
+                        </StackPanel>
+
+                        <!-- Lieu -->
+                        <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+                            <TextBlock Foreground="white"
+                                       Text="Lieu de l'événement" FontWeight="Bold" FontSize="16" />
+                            <TextBlock x:Name="EventLocationText"
+                                       Foreground="white"
+                                       Text="Lieu non défini" />
+                        </StackPanel>
+
+                        <!-- Boutons -->
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom">
+
+                            <Button Background="White"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Padding="10,5" Margin="5"
+                                    Click="AddSpeakerButton_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Kind="AccountPlus" Width="20" Margin="0,0,5,0" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="Ajouter intervenant" />
+                                </StackPanel>
+                            </Button>
+                            <Button Background="White"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Padding="10,5" Margin="5"
+                                    Click="ShareButton_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Kind="ShareVariant" Width="20" Margin="0,0,5,0" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="Partager" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button
+                                BorderThickness="0"
+                                Style="{StaticResource MaterialDesignOutlinedButton}" Padding="10,5" Margin="5"
+                                Background="Red" Foreground="White">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        VerticalAlignment="Center"
+                                        Kind="Delete" Width="20" Margin="0,0,5,0" />
+                                    <TextBlock
+                                        Text="Supprimer" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+
+            <!-- Infos principales -->
+
+            <!-- Section Activités -->
+            <TextBlock Text="Activités"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Margin="20,10,20,0" />
+
+            <!-- Cartes d'activités -->
+            <WrapPanel Margin="0,20,20,20" HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       ItemHeight="300">
+
+                <!-- Cartes d'activités -->
+                <ItemsControl x:Name="ActivitiesItemsControl"
+                              Margin="20"
+                              HorizontalAlignment="Left">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel ItemWidth="300" ItemHeight="300" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource MaterialDesignCardActionButton}"
+                                    Command="{Binding DataContext.OpenActivityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    
+                                    Width="300" Height="300"
+                                    Padding="0" Margin="10">
+                                <Border Background="White"
+                                        CornerRadius="10"
+                                        Width="300" Height="300"
+                                        Effect="{DynamicResource MaterialDesignElevation3}">
+                                    <Grid>
+                                        <Image Source="../ressources/event_cover.jpg" Stretch="Fill" Opacity="0.5" />
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Name}"
+                                                       Foreground="DarkViolet"
+                                                       FontSize="16"
+                                                       FontWeight="Bold"
+                                                       TextWrapping="Wrap"
+                                                       TextAlignment="Center"
+                                                       MaxWidth="250" />
+                                            <TextBlock Text="{Binding FormattedPeriod}"
+                                                       Foreground="Black"
+                                                       Margin="0,5,0,0"
+                                                       TextAlignment="Center" />
+                                            <TextBlock Text="{Binding FormattedSpeakers}"
+                                                       Foreground="Black"
+                                                       Margin="0,5,0,0"
+                                                       TextWrapping="Wrap"
+                                                       TextAlignment="Center"
+                                                       MaxWidth="250" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+
+                <!-- Bouton Ajouter Activité -->
+                <Border Background="#fff" CornerRadius="10" Margin="10,20,10,0"
+                        HorizontalAlignment="Left"
+                        Effect="{DynamicResource MaterialDesignElevation3}">
+                    <Button Background="Transparent" BorderThickness="0"
+                            Height="300" Width="300"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Click="AddActivityButton_Click">
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <materialDesign:PackIcon
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="PlusCircleOutline"
+                                Foreground="DarkViolet"
+                                Width="48" Height="48" />
+                            <TextBlock Text="Nouvelle activité"
+                                       Foreground="DarkViolet"
+                                       FontWeight="Bold" />
+                        </StackPanel>
+                    </Button>
+                </Border>
+            </WrapPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

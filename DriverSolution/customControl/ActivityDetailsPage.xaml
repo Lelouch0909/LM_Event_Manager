@@ -1,0 +1,198 @@
+<Window x:Class="DriverSolution.customControl.ActivityDetailsPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Détails de l'activité" 
+        Width="1000" Height="700"
+        WindowStartupLocation="CenterOwner">
+    <ScrollViewer>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- En-tête -->
+            <StackPanel Grid.Row="0">
+                <TextBlock x:Name="ActivityTitle" 
+                           FontSize="28" FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+                
+                <!-- Timeline -->
+                <Border Background="#F5F5F5" CornerRadius="5" Padding="10" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="TIMELINE" 
+                                   FontSize="12" FontWeight="Bold"
+                                   Foreground="Gray" Margin="0,0,0,5"/>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Passé -->
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <Rectangle Width="20" Height="20" Fill="Red" RadiusX="10" RadiusY="10"/>
+                                <TextBlock Text="Passé" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            
+                            <!-- Timer -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <materialDesign:PackIcon x:Name="TimelineStatusIcon" Kind="Clock" Width="24" Height="24"/>
+                                <TextBlock x:Name="CountdownText" 
+                                           FontSize="18" FontWeight="Bold"
+                                           Margin="5,0,0,0"/>
+                                <TextBlock x:Name="TimelineStatusText" 
+                                           FontSize="18"
+                                           Margin="5,0,0,0"/>
+                            </StackPanel>
+                            
+                            <!-- A venir -->
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Rectangle Width="20" Height="20" Fill="Green" RadiusX="10" RadiusY="10"/>
+                                <TextBlock Text="À venir" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        
+                        <!-- Barre de progression temporelle -->
+                        <Grid Height="10" Margin="0,10,0,0">
+                            <Rectangle x:Name="PastTimeBar" Fill="Red" HorizontalAlignment="Left" Width="0"/>
+                            <Rectangle x:Name="FutureTimeBar" Fill="Green" HorizontalAlignment="Right" Width="0"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Détails -->
+            <Grid Grid.Row="1" Margin="0,10,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Colonne gauche -->
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <TextBlock Text="DESCRIPTION" 
+                               FontSize="12" FontWeight="Bold"
+                               Foreground="Gray" Margin="0,0,0,5"/>
+                    <TextBox x:Name="DescriptionText" 
+                             AcceptsReturn="True" TextWrapping="Wrap"
+                             MinHeight="100" IsReadOnly="True"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                    
+                    <TextBlock Text="LOCALISATION" 
+                               FontSize="12" FontWeight="Bold"
+                               Foreground="Gray" Margin="0,10,0,5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="MapMarker" Margin="0,0,5,0"/>
+                        <TextBlock x:Name="LocationText"/>
+                    </StackPanel>
+                    
+                </StackPanel>
+                
+                <!-- Colonne droite -->
+                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                    <TextBlock Text="INTERVENANTS" 
+                               FontSize="12" FontWeight="Bold"
+                               Foreground="Gray" Margin="0,0,0,5"/>
+                    <ListView ItemsSource="{Binding SpeakersList}" 
+                              BorderThickness="0">
+                        <ListView.Style>
+                            <Style TargetType="ListView">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SpeakersList.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Style>
+    
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+    
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5">
+                                    <TextBlock Text="{Binding Name, FallbackValue='Nom non disponible'}" 
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Email, FallbackValue='Email non disponible'}" 
+                                               Foreground="Gray"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <TextBlock Text="Aucun intervenant n'est associé à cette activité."
+                               Visibility="{Binding SpeakersList.Count, ConverterParameter=0}"
+                               FontStyle="Italic"
+                               Foreground="Gray"
+                               Margin="0,10"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Calendrier -->
+            <Border Grid.Row="2" BorderBrush="#DDD" BorderThickness="0,1,0,0" Padding="0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="CALENDRIER" 
+                               FontSize="12" FontWeight="Bold"
+                               Foreground="Gray" Margin="0,0,0,10"/>
+                    
+                    <!-- Timeline visuelle -->
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding TimeSlots}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#EEE" BorderThickness="0,0,0,1" Padding="0,5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <TextBlock Text="{Binding TimeLabel}" 
+                                                   FontWeight="Bold"/>
+                                        <Border Grid.Column="1" 
+                                                Background="{Binding TimeStatusColor}"
+                                                CornerRadius="3" Padding="10">
+                                            <TextBlock Text="{Binding Status}"
+                                                       Foreground="White"
+                                                       FontWeight="Bold"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+            <!-- Boutons d'action -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <Button Content="Annuler l'activité"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Background="Red" Foreground="White"
+                        Click="CancelActivityButton_Click"/>
+                
+                <Button Content="Retour"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Margin="10,0,0,0"
+                        Click="BackButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
