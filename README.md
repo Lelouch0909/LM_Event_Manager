@@ -75,7 +75,7 @@ CI/CD	GitHub Actions
 ##Prérequis :
 
 bash
-dotnet --version # >= 8.0
+`dotnet --version # >= 8.0`
 Configuration :
 
 bash
@@ -85,8 +85,8 @@ Variables d'environnement :
 
 ##Lancement :
 
-bash
-dotnet run --project DriverSolution.csproj
+`bash
+dotnet run --project DriverSolution.csproj`
 
 #📂 Structure du Code
 text
@@ -108,12 +108,12 @@ Créez un fork du projet
 Initialisez vos modifications :
 
 bash
-git checkout -b feature/nouvelle-fonctionnalite
+`git checkout -b feature/nouvelle-fonctionnalite`
 Soumettez vos changements :
 
 bash
-git commit -m "feat: ajout nouvelle fonctionnalité"
-git push origin feature/nouvelle-fonctionnalite
+`git commit -m "feat: ajout nouvelle fonctionnalité"
+git push origin feature/nouvelle-fonctionnalite`
 
 📜 Licence
 MIT License - Voir LICENSE.md pour plus d'informations.
